@@ -1,0 +1,39 @@
+---
+version: 3
+dependencies:
+  ansible_core:
+    package_pip: ansible-core==2.15.1
+  ansible_runner:
+    package_pip: ansible-runner==2.3.3
+  system: bindep.txt
+additional_build_steps:
+  prepend_base: |
+    ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini /tini
+    RUN for dir in \
+        /home/runner \
+        /home/runner/.ansible \
+        /home/runner/.ansible/tmp \
+        /runner \
+        /home/runner \
+        /runner/env \
+        /runner/inventory \
+        /runner/project \
+        /runner/artifacts ; \
+        do mkdir -m 0775 -p $dir ; chmod -R g+rwx $dir ; chgrp -R root $dir ; done && \
+        for file in \
+          /home/runner/.ansible/galaxy_token \
+          /etc/passwd \
+          /etc/group ; \
+        do touch $file ; chmod g+rw $file ; chgrp root $file ; done
+    RUN dnf install python3-pip -y \
+        && dnf clean all \
+        && chmod +x /tini
+images:
+  base_image:
+    name: rockylinux:9
+options :
+  container_init:
+    entrypoint: '["/tini", "--", "/opt/builder/bin/entrypoint", "dumb-init"]'
+    cmd: '["ansible-runner", "run", "/runner"]'
+    package_pip: 'dumb-init'
+  user: 'root'
