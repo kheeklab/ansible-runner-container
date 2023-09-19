@@ -15,3 +15,20 @@ This container images container based on Rocky Linux 9 with the following packag
 | tags | ansible-runner | ansible-core |
 | ---- | -------------- | ------------ |
 | v1.0.0 | 2.3.3 | 2.15.1 |
+
+## Getting Started
+
+### Pre-requisites
+
+- [ansible-builder](https://github.com/ansible/ansible-builder)
+
+### Building
+
+Run the following command:
+
+```console
+ansible-builder build -t kheeklab/ee-base:dev
+
+```
+
+This will build the container image with the name kheeklab/ee-base:dev.

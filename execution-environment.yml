@@ -2,9 +2,9 @@
 version: 3
 dependencies:
   ansible_core:
-    package_pip: ansible-core==2.15.1
+    package_pip: ansible-core==2.15.4
   ansible_runner:
-    package_pip: ansible-runner==2.3.3
+    package_pip: ansible-runner==2.3.4
 additional_build_steps:
   prepend_base: |
     ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini /tini
@@ -29,7 +29,7 @@ additional_build_steps:
         && chmod +x /tini
 images:
   base_image:
-    name: rockylinux:9
+    name: rockylinux:9.2.20230513
 options :
   container_init:
     entrypoint: '["/tini", "--", "/opt/builder/bin/entrypoint", "dumb-init"]'
