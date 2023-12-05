@@ -12,9 +12,9 @@ This container images container based on Rocky Linux 9 with the following packag
 
 ## Version Info
 
-| tags | ansible-runner | ansible-core |
-| ---- | -------------- | ------------ |
-| v1.0.0 | 2.3.3 | 2.15.1 |
+| tags   | ansible-runner | ansible-core |
+| ----   | -------------- | ------------ |
+| v1.0.0 | 2.3.3          | 2.15.1       |
 
 ## Getting Started
 
